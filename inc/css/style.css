@@ -1,0 +1,79 @@
+*{
+     
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+ul{
+    list-style: none;
+}
+
+
+nav a{
+    color: white;
+    text-decoration: none;
+    
+}
+
+nav li{
+    display: inline-block;
+    padding-right: 2rem;
+}
+
+
+nav a:hover{
+    color: dodgerblue;
+    background-color: white;
+    padding: 1rem;
+}
+
+form{
+
+    padding: 10rem 40rem;
+    text-align: center;
+    
+
+}
+
+label{
+    padding-bottom: 1rem;
+    font-weight: bold;
+}
+
+input, select{
+    
+    padding: 0.5rem;
+    box-shadow: none;
+}
+
+  [type="submit"]{
+            width: 10rem;
+            display: inline-block;
+            background: dodgerblue;
+            color: white;
+            font-weight: bold;
+            margin-left: 6rem;
+
+            -webkit-border-radius:.75rem;
+            -moz-border-radius:.75rem;
+            border-radius: .75rem;
+    }
+
+
+footer, nav{
+
+    background-color: dodgerblue;
+    padding: 1.3rem;
+    color: white;
+
+    font-size: 1.5rem;
+    font-family: sans-serif;
+
+}
+
+footer{
+    text-align: center;
+    font-size: 1rem;
+}
