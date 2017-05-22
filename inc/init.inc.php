@@ -11,7 +11,7 @@ define('RACINE_SITE', '/TeamProject/'); // dossier localisant la racine du site
 
 // déclarations de variables 
 $contenu = '';
-
+$contenuGauche = '';
 
 /// autres inclusions
 require_once('fonction.inc.php');
