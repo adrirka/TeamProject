@@ -28,7 +28,7 @@ function executeRequete($req, $param = array()){
     // (si il y a des paramètres, on les traite)
     if(!empty($param)){
         foreach($param as $indice => $value){
-            $param[$indice] = htmlspecialchars($valeur, ENT_QUOTES); // transforme en entité html chaque caractères spéciaux
+            $param[$indice] = htmlspecialchars($value, ENT_QUOTES); // transforme en entité html chaque caractères spéciaux
         }
     }
 

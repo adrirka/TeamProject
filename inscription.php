@@ -4,16 +4,18 @@ require_once('inc/init.inc.php');
 
 $inscription = false;
 
+var_dump($_POST);
+
 if(!empty($_POST)) { // si le formulaire est posté
 
     // validation du formulaire :
 
-    if(strlen($_POST['pseudo']) < 1 || strlen($_POST['pseudo'])> 20) {
-        $contenu .='<div>Le pseudo doit contenir au moins 4 caractères </div>';
+    if(strlen($_POST['pseudo']) < 2 || strlen($_POST['pseudo'])> 20) {
+        $contenu .='<div>Le pseudo doit contenir au moins 2 caractères </div>';
     }
 
     if(strlen($_POST['mdp']) < 4 || strlen($_POST['mdp'])> 20) {
-        $contenu .='<div>Le mot de passe doit contenir au moins 2 caractères </div>';
+        $contenu .='<div>Le mot de passe doit contenir au moins 4 caractères </div>';
     }
 
     if(strlen($_POST['nom']) < 2 || strlen($_POST['nom'])> 20) {
@@ -28,14 +30,14 @@ if(!empty($_POST)) { // si le formulaire est posté
         $contenu .= '<div>L\'email est invalide</div>';
     }
 
-    if($_POST['civilite'] != 'h' && $_POST['civilite'] !='f') {
+    if($_POST['civilite'] == 'null' || $_POST['civilite'] != 'h' && $_POST['civilite'] !='f') {
         $contenu .= '<div>La civilité est incorrecte</div>';
     }
 
+    if(empty($contenu)) {   // si contenu est vide c'est qu'il n'y pas d'erreur
 
-     if(empty($contenu)) {   // si contenu est vide c'est qu'il n'y pas d'erreur
-
-        $membre = executeRequete("SELECT id_membre FROM membre WHERE pseudo = :pseudo", array(':pseudo' => $_POST['pseudo']));  // on vérifie l'existence du pseudo
+        // On vérifie que le pseudo n'existe pas 
+        $membre = executeRequete("SELECT id_membre FROM membre WHERE pseudo = :pseudo", array(':pseudo' => $_POST['pseudo']));
 
         if($membre->rowCount() > 0) {   // s'il y a des lignes dans le résultat de la requête
             $contenu .= '<div>Le pseudo est indisponible : veuillez en choisir un autre</div>';
@@ -43,19 +45,20 @@ if(!empty($_POST)) { // si le formulaire est posté
         } else {
             // Si le pseudo est unique, on peut faire l'inscription en BDD :
 
-            $_POST['mdp'] = md5($_POST['mdp']); // permet d'encrypter le mot de passe selon l'algorithme md 5. Il faudra le faire aussi sur la page de connexion pour comparer 2 mots cryptés. 
+            $_POST['mdp'] = md5($_POST['mdp']); // permet d'encrypter le mot de passe selon l'algorithme md5. Il faudra le faire aussi sur la page de connexion pour comparer 2 mots cryptés. 
 
-            executeRequete("INSERT INTO membre (pseudo, mdp, nom, prenom, email, civilite, statut) VALUES(:pseudo, :mdp, :nom, :prenom, :email, :civilite, 0)", array(':pseudo' => $_POST['pseudo'], ':mdp' => $_POST['mdp'],':nom' => $_POST['nom'], ':prenom' => $_POST['prenom'], ':email' => $_POST['email'],':civilite' => $_POST['civilite']));
+            executeRequete("INSERT INTO membre (pseudo, mdp, nom, prenom, email, civilite, statut, date_enregistrement) VALUES(:pseudo, :mdp, :nom, :prenom, :email, :civilite, 0, now())", array(':pseudo' => $_POST['pseudo'], ':mdp' => $_POST['mdp'],':nom' => $_POST['nom'], ':prenom' => $_POST['prenom'], ':email' => $_POST['email'],':civilite' => $_POST['civilite']));
 
             $contenu  .='<div>Vous êtes inscrits. <a href="connexion.php">Cliquez ici pour vous connecter</a></div>';
             $inscription = true; 
 
         }
 
-     }
+     }  // fin du if(empty($contenu))
+
+} // fin du if(!empty($_POST))
 
 
-}
 require_once('inc/haut.inc.php');
 echo $contenu;  // affiche les messages du site
 
