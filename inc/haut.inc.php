@@ -29,7 +29,19 @@
             <li><a href="<?php RACINE_SITE ?>">Salle A</a>
             <li><a href="about.html">Qui sommes nous</a>
             <li><a href="contact.html">Contact</a>
-            <li><a href="connexion.php">Espace membre</a>            
+            <li><a href="connexion.php">Espace membre</a> 
+
+            <?php
+             if(connectedAdmin()) {
+                            echo '<li><a href=" '. RACINE_SITE .'admin/gestion_salles.php">Gestion des salles</a></li>';
+
+                            echo '<li><a href=" '. RACINE_SITE .'admin/gestion_produits.php">Gestion des produits</a></li>';
+
+                            echo '<li><a href=" '. RACINE_SITE .'admin/gestion_membre.php">Gestion des membres</a></li>';
+                            
+                        }
+                        ?>
+
         </ul>
 
     </nav>
