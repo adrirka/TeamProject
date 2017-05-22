@@ -8,14 +8,14 @@ if(!connected()){
     exit();
 }
 
-if($_SESSION['membre']['civilite'] = 'm'){
+if($_SESSION['membre']['civilite'] == 'm'){
     $civilite = 'Monsieur';
 }else{
     $civilite = 'Madame';
 }
 
-$contenu .= '<h2>Bonjour ' . $civilite . $_SESSION['membre']['pseudo'] .' ! </h2>';
-var_dump($_SESSION);
+$contenu .= '<h2>Bonjour ' . $civilite . ' ' . $_SESSION['membre']['pseudo'] . ' ! </h2>';
+
 
 // On affiche le statut du membre 
 if($_SESSION['membre']['statut'] == 1){
