@@ -54,7 +54,6 @@ input, select{
             background: dodgerblue;
             color: white;
             font-weight: bold;
-            margin-left: 6rem;
 
             -webkit-border-radius:.75rem;
             -moz-border-radius:.75rem;
@@ -76,4 +75,8 @@ footer, nav{
 footer{
     text-align: center;
     font-size: 1rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
 }
