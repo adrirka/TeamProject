@@ -37,7 +37,7 @@
 
                             echo '<li><a href=" '. RACINE_SITE .'admin/gestion_produits.php">Gestion des produits</a></li>';
 
-                            echo '<li><a href=" '. RACINE_SITE .'admin/gestion_membre.php">Gestion des membres</a></li>';
+                            echo '<li><a href=" '. RACINE_SITE .'admin/gestion_membres.php">Gestion des membres</a></li>';
                             
                         }
                         ?>
