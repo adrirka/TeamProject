@@ -8,7 +8,7 @@ if(!empty($_POST)) { // si le formulaire est posté
 
     // validation du formulaire :
 
-    if(strlen($_POST['pseudo']) < 4 || strlen($_POST['pseudo'])> 20) {
+    if(strlen($_POST['pseudo']) < 1 || strlen($_POST['pseudo'])> 20) {
         $contenu .='<div>Le pseudo doit contenir au moins 4 caractères </div>';
     }
 
@@ -33,6 +33,28 @@ if(!empty($_POST)) { // si le formulaire est posté
     }
 
 
+     if(empty($contenu)) {   // si contenu est vide c'est qu'il n'y pas d'erreur
+
+        $membre = executeRequete("SELECT id_membre FROM membre WHERE pseudo = :pseudo", array(':pseudo' => $_POST['pseudo']));  // on vérifie l'existence du pseudo
+
+        if($membre->rowCount() > 0) {   // s'il y a des lignes dans le résultat de la requête
+            $contenu .= '<div>Le pseudo est indisponible : veuillez en choisir un autre</div>';
+
+        } else {
+            // Si le pseudo est unique, on peut faire l'inscription en BDD :
+
+            $_POST['mdp'] = md5($_POST['mdp']); // permet d'encrypter le mot de passe selon l'algorithme md 5. Il faudra le faire aussi sur la page de connexion pour comparer 2 mots cryptés. 
+
+            executeRequete("INSERT INTO membre (pseudo, mdp, nom, prenom, email, civilite, statut) VALUES(:pseudo, :mdp, :nom, :prenom, :email, :civilite, 0)", array(':pseudo' => $_POST['pseudo'], ':mdp' => $_POST['mdp'],':nom' => $_POST['nom'], ':prenom' => $_POST['prenom'], ':email' => $_POST['email'],':civilite' => $_POST['civilite']));
+
+            $contenu  .='<div>Vous êtes inscrits. <a href="connexion.php">Cliquez ici pour vous connecter</a></div>';
+            $inscription = true; 
+
+        }
+
+     }
+
+
 }
 require_once('inc/haut.inc.php');
 echo $contenu;  // affiche les messages du site
@@ -47,7 +69,7 @@ if (!$inscription) : // si personne non-inscrite, le formulaire s'affiche
             <input type="text" name="pseudo" id="pseudo"><br><br>
 
             <label for="mdp">Mot de passe</label><br>
-            <input type="text" name="mdp" id="mdp"><br><br>
+            <input type="password" name="mdp" id="mdp"><br><br>
 
             <label for="nom">Nom</label><br>
             <input type="text" name="nom" id="nom"><br><br>
@@ -60,7 +82,7 @@ if (!$inscription) : // si personne non-inscrite, le formulaire s'affiche
 
             <label for="civilite">Civilité</label><br>
             <select name="civilite" id="civilite">
-                <option value="null"> -Selectionner- </option>
+                <option value="null"> -Sélectionner- </option>
                 <option value="h">Homme</option>
                 <option value="f">Femme</option>
             </select><br><br>
