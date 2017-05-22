@@ -30,35 +30,35 @@ nav a:hover{
 }
 
 form{
-
-    padding: 10rem 40rem;
+    width: 50%;
+    margin: auto;
     text-align: center;
     
-
 }
 
 label{
-    padding-bottom: 1rem;
     font-weight: bold;
 }
 
 input, select{
-    
+    width: 100%;
     padding: 0.5rem;
+    margin: 0.5rem 0 1rem 0;
+    text-align: center;
     box-shadow: none;
 }
 
-  [type="submit"]{
-            width: 10rem;
-            display: inline-block;
-            background: dodgerblue;
-            color: white;
-            font-weight: bold;
+[type="submit"]{
+    width: 10rem;
+    display: inline-block;
+    background: dodgerblue;
+    color: white;
+    font-weight: bold;
 
-            -webkit-border-radius:.75rem;
-            -moz-border-radius:.75rem;
-            border-radius: .75rem;
-    }
+    -webkit-border-radius:.75rem;
+    -moz-border-radius:.75rem;
+    border-radius: .75rem;
+}
 
 
 footer, nav{
