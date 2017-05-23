@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Location de salles</title>
 
-    <link rel="stylesheet" href="<?php echo RACINE_SITE . 'inc/css/style.css'; ?>">
+    <link rel="stylesheet" href="css/style.css">
     
 </head>
 

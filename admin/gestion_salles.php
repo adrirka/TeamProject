@@ -12,6 +12,7 @@ if(!connectedAdmin()){
 
 // Suppression d'un produit
 if(isset($_GET['action']) && $_GET['action'] == 'supprimer' && isset($_GET['id_salle'])){
+    
     // On séléctionne en bdd la photo
     $resultat = executeRequete("SELECT photo FROM salle WHERE id_salle = :id_salle", array(':id_salle' => $_GET['id_salle'])); 
 
@@ -146,7 +147,7 @@ echo $contenu;
 
 // Pour la modification, on demande l'affichage des informations dans les champs en question 
 
-if(isset($_GET['id_salle'])){
+if($_GET['action'] == 'modifier' && isset($_GET['id_salle'])){
         $resultat = executeRequete("SELECT * FROM salle WHERE id_salle = :id_salle", array(':id_salle' => $_GET['id_salle']));
 
         $produit_actuel = $resultat->fetch(PDO::FETCH_ASSOC); 
