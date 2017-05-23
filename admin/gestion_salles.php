@@ -147,7 +147,7 @@ echo $contenu;
 
 // Pour la modification, on demande l'affichage des informations dans les champs en question 
 
-if($_GET['action'] == 'modifier' && isset($_GET['id_salle'])){
+if(isset($_GET['action']) && $_GET['action'] == 'modifier' && isset($_GET['id_salle'])){
         $resultat = executeRequete("SELECT * FROM salle WHERE id_salle = :id_salle", array(':id_salle' => $_GET['id_salle']));
 
         $produit_actuel = $resultat->fetch(PDO::FETCH_ASSOC); 
