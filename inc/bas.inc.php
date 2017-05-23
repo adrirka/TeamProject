@@ -2,7 +2,11 @@
         </main>
         
         <footer>
-            <p>Under MIT Licence</p>
+            <ul>
+                <li><a href="" >Mentions légales</a></li>
+                <li><a href="">Conditions générales de vente</a></li>
+            </ul>
+            
         </footer>
     </body>
 </html>
