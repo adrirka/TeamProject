@@ -15,16 +15,16 @@
    
         <nav>   
             <ul id="menu-deroulant">
-                <li><a href="page_accueil.php">Salle A</a></li>
-                <li><a href="page_accueil.php">Accueil</a></li>
-                <li><a href="connexion.php">Espace membre</a></li>
-                <li><a href="profil.php">Profil</a></li>
-                <li><a href="about.html">Qui sommes nous</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="#">Administration</a></li>
-                    <ul>
-                    <?php
-                        if(connectedAdmin()) {
+                <li><a href="<?php echo RACINE_SITE . 'page_accueil.php';?>">Salle A</a></li>
+                <li><a href="<?php echo RACINE_SITE . 'page_accueil.php'; ?>">Accueil</a></li>
+                <li><a href="<?php echo RACINE_SITE . 'connexion.php';?> ">Espace membre</a></li>
+                <li><a href="<?php echo RACINE_SITE . 'profil.php';?>">Profil</a></li>
+                <li><a href="<?php echo RACINE_SITE . 'about.html';?>">Qui sommes nous</a></li>
+                <li><a href="<?php echo RACINE_SITE . 'contact.html';?>">Contact</a></li>
+                <?php if(connectedAdmin()) {
+                    echo '<li><a href="#">Administration</a></li>
+                    <ul>';
+                    
                             echo '<li><a href=" '. RACINE_SITE .'admin/gestion_salles.php">Gestion des salles</a></li>';
 
                             echo '<li><a href=" '. RACINE_SITE .'admin/gestion_produits.php">Gestion des produits</a></li>';
