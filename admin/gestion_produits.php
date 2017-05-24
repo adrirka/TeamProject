@@ -16,19 +16,6 @@ if(!connectedAdmin()){
 // suppression d'un produit
 if (isset($_GET['action']) && $_GET['action'] == 'suppression' && isset($_GET['id_salle'])){
 
-
-    $resultat = executeRequete("SELECT * FROM salle s INNER JOIN produit p ON s.id_salle = p.id_salle WHERE id_salle = :id_salle", array(':id_salle' => $_GET['id_salle']));
-    
-    $produit_a_supprimer = $resultat->fetch(PDO::FETCH_ASSOC); // pas de while car qu'un seul produit 
-
-    $chemin_photo_a_supprimer = $_SERVER['DOCUMENT_ROOT'] . $produit_a_supprimer['photo']; // chemin du fichier à supprimer
-
-    if(!empty($produit_a_supprimer['photo']) && file_exists($chemin_photo_a_supprimer)){
-        //si il y a un chemin de photo en base ET que le fichier existe, on peut le supprimer:
-        unlink($chemin_photo_a_supprimer); // supprimer le fichier spécifié
-    
-    }
-
     // puis suppression du produit en BDD:
     executeRequete("DELETE FROM produit WHERE id_salle = :id_salle", array(':id_salle' => $_GET['id_salle']));
 
@@ -36,7 +23,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'suppression' && isset($_GET['i
     $_GET['action'] = 'affichage'; // pour lancer l'affichage des produits dans le tableau HTML
 
 }else{
-
     $resultat = executeRequete("SELECT * FROM produit");
     
 }
@@ -60,19 +46,13 @@ $contenu .= '<h3>Liste des produits</h3>
         
         // Affichages des lignes
 
-        $contenu .= '<tr>';
-
         while($ligne = $resultat->fetch(PDO::FETCH_ASSOC)){
             $contenu .= '<tr>';
                 // echo '<pre>'; print_r($ligne), echo '<pre>';
                 foreach($ligne as $index => $data){
-                    if($index == 'photo'){
-                        $contenu .= '<td><img src="'. $data .'" width="70" height="70"></td>';
-                    }else{
                         $contenu .= '<td>' . $data . '</td>';
-                    }
-
                 }
+        
 
                 $contenu .= '<td>
                                 <a href="?action=modification&id_produit='. $ligne['id_produit'] .'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> /
@@ -81,9 +61,9 @@ $contenu .= '<h3>Liste des produits</h3>
                             </td>';
         
             $contenu .= '</tr>';
-        }
 
-        
+
+        }
     
     $contenu .= '</table>';
 
@@ -114,21 +94,7 @@ if(isset($_GET['action']) && ($_GET['action'] == 'ajout' || $_GET['action'] == '
 
 
 <h3>Formulaire d'ajout ou de modification d'un produit</h3>
-<form method="post" enctype="multipart/form-data" action=""><!-- "multipart/form-data" permet de cacher un fichier et de fénérer une superglobale $_FILES -->
-
-
-    <!-- Modification de la photo -->
-    <?php 
-    
-        if(isset($produit_actuel['photo'])){
-            echo'<i>Vous pouvez uploader une nouvelle photo</i><br>';
-            // Afficher la photo actuelle : 
-            echo '<img src="'. $produit_actuel['photo'] . '" width="90" height="90"><br>';
-            // Mettre le chemin de la photo dans un champs caché pour l'enregistrer en base
-            echo '<input type="hidden" name="photo_actuelle" value="' . $produit_actuel['photo'] .'">';
-            // ce champs renseigne le $_POST['photo_actuelle'] qui va en base quand on soumet le formulaire de modification. Si on ne remplit pas le formulaire ici , le champs photo de la base est remplacé par un vide, ce qui efface le chemin de la photo
-        }
-    ?>
+<form method="post" action="">
 
     <label for="date_arrivee">Date d'arrivee</label>
     <input type="date" id="date_arrivee" name="date_arrivee" value="<?php echo $produit_actuel['date_arrivee'] ?? ''; ?>"><br><br>
