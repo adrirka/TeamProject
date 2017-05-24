@@ -15,11 +15,13 @@
    
         <nav>   
             <ul id="menu-deroulant">
-                <li><a href="<?php RACINE_SITE ?>">Salle A</a>
-                <li><a href="about.html">Qui sommes nous</a>
-                <li><a href="contact.html">Contact</a>
-                <li><a href="connexion.php">Espace membre</a> 
-                <li><a href="#">Administration</a>
+                <li><a href="page_accueil.php">Salle A</a></li>
+                <li><a href="page_accueil.php">Accueil</a></li>
+                <li><a href="connexion.php">Espace membre</a></li>
+                <li><a href="profil.php">Profil</a></li>
+                <li><a href="about.html">Qui sommes nous</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="#">Administration</a></li>
                     <ul>
                     <?php
                         if(connectedAdmin()) {
