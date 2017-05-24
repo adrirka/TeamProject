@@ -75,9 +75,9 @@ $contenu .= '<h3>Liste des produits</h3>
                 }
 
                 $contenu .= '<td>
-                                <a href="?action=modification&id_produit='. $ligne['id_produit'] .'">Modifier</a> /
+                                <a href="?action=modification&id_produit='. $ligne['id_produit'] .'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> /
                                 <a href="?action=suppression&id_produit=' . $ligne['id_produit'] . '"
-                                onclick="return(confirm(\'Etes-vous cetain de vouloir supprimer ce produit ? \'));">Supprimer</a>
+                                onclick="return(confirm(\'Etes-vous cetain de vouloir supprimer ce produit ? \'));"><i class="fa fa-trash" aria-hidden="true"></i></a>
                             </td>';
         
             $contenu .= '</tr>';
