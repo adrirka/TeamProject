@@ -70,6 +70,11 @@ $contenu_gauche .= '<input type="date" name="date_depart">';
 require_once('inc/haut.inc.php');
 
 ?>
+
+
+
+
+
 <style>
 #gauche{
     width: 25%;
@@ -98,6 +103,11 @@ label{
     margin: 2rem 0 1rem 0;
 }
 
+section{
+    
+    margin-bottom: 5rem;
+}
+
 </style>
     <section id="gauche">
         <?php echo $contenu_gauche; ?>
@@ -106,6 +116,8 @@ label{
     <section id="droite">
         <?php echo $contenu_droit; ?>
     </section>
+
+    <p><a href="avis.php">Déposer un commentaire et une note</a></p>
 
 <?php 
 // Affichage HTML
