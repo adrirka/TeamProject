@@ -2,6 +2,15 @@
 
 require_once('inc/init.inc.php');
 
+// Déclaration des variables de traitement du formulaire : 
+$cat = '';
+$ville = '';
+$capacite = '';
+$prix = '';
+$date_arrivée = '';
+$date_depart = ''; 
+
+
 // Affichage des catégories :
 $categories = executeRequete("SELECT DISTINCT categories FROM salle");
 
@@ -54,6 +63,9 @@ $contenu_gauche .= '<input type="date" name="date_depart">';
 
 
 // Affichage des produits :
+
+
+
 
 require_once('inc/haut.inc.php');
 
