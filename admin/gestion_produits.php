@@ -13,13 +13,11 @@ if(!connectedAdmin()){
 
 }
 
-
 // suppression d'un produit
-if (isset($_GET['action']) && $_GET['action'] == 'suppression' && isset($_GET['id_produit'])){
+if (isset($_GET['action']) && $_GET['action'] == 'suppression' && isset($_GET['id_salle'])){
 
-    // On sélectionne en base la photo pour pouvoir supprimer le fichier photo correspondant : 
-    $resultat = executeRequete("SELECT * 
-    FROM salle WHERE id_salle = :id_salle", array(':id_salle' => $_GET['id_salle']));
+
+    $resultat = executeRequete("SELECT * FROM salle s INNER JOIN produit p ON s.id_salle = p.id_salle WHERE id_salle = :id_salle", array(':id_salle' => $_GET['id_salle']));
     
     $produit_a_supprimer = $resultat->fetch(PDO::FETCH_ASSOC); // pas de while car qu'un seul produit 
 
@@ -37,20 +35,25 @@ if (isset($_GET['action']) && $_GET['action'] == 'suppression' && isset($_GET['i
     $contenu .= '<div class="suppression">Le produit a été supprimé !</div>';
     $_GET['action'] = 'affichage'; // pour lancer l'affichage des produits dans le tableau HTML
 
-    
+}else{
 
+    $resultat = executeRequete("SELECT * FROM produit");
+    
 }
+
+$contenu .= '<h3>Liste des produits</h3>
+                <table border=".2rem solid grey">';
   
         // La ligne des entêtes
         
         $contenu .= '<tr>';
-        GLOBAL $resultat;
 
             for($i = 0; $i < $resultat->columnCount(); $i++){
                 $colonne = $resultat->getColumnMeta($i);
             
                  $contenu .= '<th>' . $colonne['name'] . '</th>'; //getColumnMeta() retourne un array contenant notamment l'indice name contenant le nom de la colonne
             }
+            
             $contenu .='<th>Action</th>'; // on ajoute une colonne "action"
 
         $contenu .= '</tr>';
@@ -90,6 +93,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'suppression' && isset($_GET['i
 // ------------------------------ AFFICHAGE -----------------------------------
 
 require_once('../inc/haut.inc.php');
+echo "<a href='?action=affichage'>Afficher les produits</a>";
+echo "<a href='?action=ajout'>Ajouter les produits</a>";
 echo $contenu;
 
 // 3- Formulaire HTML
@@ -111,13 +116,6 @@ if(isset($_GET['action']) && ($_GET['action'] == 'ajout' || $_GET['action'] == '
 <h3>Formulaire d'ajout ou de modification d'un produit</h3>
 <form method="post" enctype="multipart/form-data" action=""><!-- "multipart/form-data" permet de cacher un fichier et de fénérer une superglobale $_FILES -->
 
-    <input type="hidden" id="id_salle" name="id_salle" value="<?php echo $produit_actuel['id_salle'] ?? 0; ?>"><!-- champs caché qui réceptionne l'id_produit nécessaire lors de la modifcation d'un produit existant -->
-
-    <label for="titre">titre</label>
-    <input type="text" id="titre" name="titre" value="<?php echo $produit_actuel['titre'] ?? ''; ?>"><br><br>
-
-    <label for="photo">Photo</label><br><br>
-    <input type="file" id="photo" name="photo" value=""><br><br> <!-- Coupler avec l'attribut enctype=multipart/form-data de la balise <form>, le type file permet d'uploader un fichier (ici une photo) -->
 
     <!-- Modification de la photo -->
     <?php 
@@ -133,22 +131,27 @@ if(isset($_GET['action']) && ($_GET['action'] == 'ajout' || $_GET['action'] == '
     ?>
 
     <label for="date_arrivee">Date d'arrivee</label>
-    <input type="datetime" id="date_arrivee" name="date_arrivee" value="<?php echo $produit_actuel['date_arrivee'] ?? ''; ?>"><br><br>
+    <input type="date" id="date_arrivee" name="date_arrivee" value="<?php echo $produit_actuel['date_arrivee'] ?? ''; ?>"><br><br>
 
     <label for="date_depart">Date de depart</label>
-    <input type="datetime" id="date_depart" name="date_depart" value="<?php echo $produit_actuel['date_depart'] ?? ''; ?>"><br><br>
+    <input type="date" id="date_depart" name="date_depart" value="<?php echo $produit_actuel['date_depart'] ?? ''; ?>"><br><br>
 
-    <label for="adresse">adresse</label>
-    <input type="text" id="adresse" name="adresse" value="<?php echo $produit_actuel['adresse'] ?? ''; ?>"><br><br>
+    <label for="tarif">Tarif</label>
+    <input type="text" id="tarif" name="tarif" value="<?php echo $produit_actuel['tarif'] ?? ''; ?>"><br><br>
 
+    <label for="salle">Salle</label>
+    
     <select>
     <?php
     $liste = query("SELECT * FROM salle");
-    $liste_resultat = $liste->fetch(PDO::FETCH_ASSOC);
     
-    //foreach($resultat as $indice => $valeur){
-        //echo
-    //}
+    $liste_resultat = $liste->fetch(PDO::FETCH_ASSOC);
+ 
+    foreach($liste_resultat as $indice => $valeur){
+     
+     echo '<option>' . $valeur['id_salle'] .  $valeur['titre'] . '</option>';
+    }
+
     ?>
     </select>
 
