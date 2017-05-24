@@ -92,7 +92,7 @@ if(!empty($_POST)){ // si le formulaire est posté
     }
 
     if(empty($contenu)){
-        executeRequete("REPLACE INTO salle (titre, description, photo, pays, ville, adresse, cp, capacite, categories) VALUES (:titre, :description, :photo, :pays, :ville, :adresse, :cp, :capacite, :categories)", array(':titre' => $_POST['titre'], ':description' => $_POST['description'], ':photo' => $photo_bdd, ':pays' => $_POST['pays'], ':ville' => $_POST['ville'], ':adresse' => $_POST['adresse'], ':cp' => $_POST['cp'], ':capacite' => $_POST['capacite'], ':categories' => $_POST['categories']));
+        executeRequete("REPLACE INTO salle (id_salle, titre, description, photo, pays, ville, adresse, cp, capacite, categories) VALUES (:id_salle, :titre, :description, :photo, :pays, :ville, :adresse, :cp, :capacite, :categories)", array(':id_salle' => $_POST['id_salle'], ':titre' => $_POST['titre'], ':description' => $_POST['description'], ':photo' => $photo_bdd, ':pays' => $_POST['pays'], ':ville' => $_POST['ville'], ':adresse' => $_POST['adresse'], ':cp' => $_POST['cp'], ':capacite' => $_POST['capacite'], ':categories' => $_POST['categories']));
 
         $contenu .= '<div>Le produit a été correctement enregistré. </div>'; 
         $_GET['action'] = 'affichage'; 
@@ -158,6 +158,7 @@ if(isset($_GET['action']) && $_GET['action'] == 'modifier' && isset($_GET['id_sa
 <h2>Gestion des salles</h2>
 
 <form method="post" action="" enctype="multipart/form-data">
+    <input type="hidden" id="id_salle" name="id_salle" value="<?php echo $produit_actuel['id_salle'] ?? 0; ?>">
     <label for="titre">Titre</label>
     <input type="titre" id="titre" name="titre" value="<?php echo $produit_actuel['titre'] ?? ''; ?>">
 
