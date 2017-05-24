@@ -2,6 +2,15 @@
 
 require_once('inc/init.inc.php');
 
+// Déclaration des variables de traitement du formulaire : 
+$cat = '';
+$ville = '';
+$capacite = '';
+$prix = '';
+$date_arrivée = '';
+$date_depart = ''; 
+
+
 // Affichage des catégories :
 $categories = executeRequete("SELECT DISTINCT categories FROM salle");
 
@@ -55,9 +64,17 @@ $contenu_gauche .= '<input type="date" name="date_depart">';
 
 // Affichage des produits :
 
+
+
+
 require_once('inc/haut.inc.php');
 
 ?>
+
+
+
+
+
 <style>
 #gauche{
     width: 25%;
@@ -86,6 +103,11 @@ label{
     margin: 2rem 0 1rem 0;
 }
 
+section{
+    
+    margin-bottom: 5rem;
+}
+
 </style>
     <section id="gauche">
         <?php echo $contenu_gauche; ?>
@@ -94,6 +116,8 @@ label{
     <section id="droite">
         <?php echo $contenu_droit; ?>
     </section>
+
+    <p><a href="avis.php">Déposer un commentaire et une note</a></p>
 
 <?php 
 // Affichage HTML

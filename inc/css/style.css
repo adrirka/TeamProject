@@ -55,6 +55,14 @@
     }
 
 /* NAVIGATION */
+
+    nav li:first-child {
+        font-size: 2rem;
+        font-weight: bold;
+        font-style: italic;
+    }
+
+
     #menu-deroulant, #menu-deroulant ul {
         padding: 0;
         margin: 0;
@@ -225,7 +233,7 @@
 
 .fa-star:hover,
 .fa-star:focus {
-   color: #e6cc44;
+   color: #f5d456;
    cursor: pointer;
 }
 
