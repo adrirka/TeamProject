@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 24 Mai 2017 à 11:35
+-- Généré le :  Mer 24 Mai 2017 à 11:41
 -- Version du serveur :  10.1.21-MariaDB
 -- Version de PHP :  7.1.1
 
@@ -19,6 +19,85 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `salles`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `avis`
+--
+
+CREATE TABLE `avis` (
+  `id_avis` int(3) NOT NULL,
+  `id_membre` int(3) NOT NULL,
+  `id_salle` int(3) NOT NULL,
+  `commentaire` text NOT NULL,
+  `note` int(2) NOT NULL,
+  `date_enregistrement` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `commande`
+--
+
+CREATE TABLE `commande` (
+  `id_commande` int(3) NOT NULL,
+  `id_membre` int(3) NOT NULL,
+  `id_produit` int(3) NOT NULL,
+  `date_enregistrement` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `membre`
+--
+
+CREATE TABLE `membre` (
+  `id_membre` int(3) NOT NULL,
+  `pseudo` varchar(20) NOT NULL,
+  `mdp` varchar(60) NOT NULL,
+  `nom` varchar(20) NOT NULL,
+  `prenom` varchar(20) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `civilite` enum('m','f') NOT NULL,
+  `statut` int(1) NOT NULL,
+  `date_enregistrement` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `membre`
+--
+
+INSERT INTO `membre` (`id_membre`, `pseudo`, `mdp`, `nom`, `prenom`, `email`, `civilite`, `statut`, `date_enregistrement`) VALUES
+(7, 'membre_test', '21232f297a57a5a743894a0e4a801fc3', 'Adri', 'Adri', 'test@test.fr', 'm', 1, '2017-05-22 16:06:00'),
+(8, 'membre_test2', '21232f297a57a5a743894a0e4a801fc3', 'Adri', 'Adri', 'test@test.fr', 'f', 0, '2017-05-22 16:06:00');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `produit`
+--
+
+CREATE TABLE `produit` (
+  `id_produit` int(3) NOT NULL,
+  `id_salle` int(3) NOT NULL,
+  `date_arrivee` datetime NOT NULL,
+  `date_depart` datetime NOT NULL,
+  `prix` int(3) NOT NULL,
+  `etat` enum('libre','reservation') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `produit`
+--
+
+INSERT INTO `produit` (`id_produit`, `id_salle`, `date_arrivee`, `date_depart`, `prix`, `etat`) VALUES
+(1, 1, '2017-05-24 00:00:00', '2017-05-27 00:00:00', 2000, 'libre'),
+(2, 2, '2017-06-01 00:00:00', '2017-06-30 00:00:00', 5000, 'reservation'),
+(3, 3, '2017-09-01 00:00:00', '2017-09-15 00:00:00', 875, 'libre'),
+(4, 4, '2017-08-07 00:00:00', '2017-08-09 00:00:00', 500, 'reservation');
 
 -- --------------------------------------------------------
 
@@ -55,6 +134,35 @@ INSERT INTO `salle` (`id_salle`, `titre`, `description`, `photo`, `pays`, `ville
 --
 
 --
+-- Index pour la table `avis`
+--
+ALTER TABLE `avis`
+  ADD PRIMARY KEY (`id_avis`),
+  ADD KEY `id_membre` (`id_membre`),
+  ADD KEY `id_salle` (`id_salle`);
+
+--
+-- Index pour la table `commande`
+--
+ALTER TABLE `commande`
+  ADD PRIMARY KEY (`id_commande`),
+  ADD KEY `id_membre` (`id_membre`),
+  ADD KEY `id_produit` (`id_produit`);
+
+--
+-- Index pour la table `membre`
+--
+ALTER TABLE `membre`
+  ADD PRIMARY KEY (`id_membre`);
+
+--
+-- Index pour la table `produit`
+--
+ALTER TABLE `produit`
+  ADD PRIMARY KEY (`id_produit`),
+  ADD KEY `id_salle` (`id_salle`);
+
+--
 -- Index pour la table `salle`
 --
 ALTER TABLE `salle`
@@ -64,6 +172,26 @@ ALTER TABLE `salle`
 -- AUTO_INCREMENT pour les tables exportées
 --
 
+--
+-- AUTO_INCREMENT pour la table `avis`
+--
+ALTER TABLE `avis`
+  MODIFY `id_avis` int(3) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `commande`
+--
+ALTER TABLE `commande`
+  MODIFY `id_commande` int(3) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `membre`
+--
+ALTER TABLE `membre`
+  MODIFY `id_membre` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT pour la table `produit`
+--
+ALTER TABLE `produit`
+  MODIFY `id_produit` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT pour la table `salle`
 --
