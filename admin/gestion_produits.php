@@ -143,14 +143,12 @@ if(isset($_GET['action']) && ($_GET['action'] == 'ajout' || $_GET['action'] == '
     
     <select>
     <?php
-    $liste = query("SELECT * FROM salle");
-    
-    $liste_resultat = $liste->fetch(PDO::FETCH_ASSOC);
- 
-    foreach($liste_resultat as $indice => $valeur){
-     
-     echo '<option>' . $valeur['id_salle'] .  $valeur['titre'] . '</option>';
-    }
+        $liste = executeRequete("SELECT titre, adresse, cp, ville, capacite FROM salle");
+
+        while($liste_resultat = $liste->fetch(PDO::FETCH_ASSOC)){
+                echo '<option value="'. $liste_resultat['titre'] .'">' . $liste_resultat['titre'] . ' - ' . $liste_resultat['adresse'] . ', ' . $liste_resultat['cp'] . ', ' . $liste_resultat['ville'] .  ' - ' . $liste_resultat['capacite'] . ' personnes </option>';
+
+        }
 
     ?>
     </select>
